@@ -12,10 +12,10 @@
     </parent>
 
     <groupId>com.example</groupId>
-    <artifactId>seatreservation</artifactId>
+    <artifactId>seat-booking</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>seatreservation</name>
-    <description>Seat Reservation API at scale for Paytm Money assignment</description>
+    <name>seat-booking</name>
+    <description>High-throughput seat reservation service with PostgreSQL advisory locking and idempotency</description>
 
     <properties>
         <java.version>21</java.version>
@@ -61,6 +61,13 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
+        </dependency>
+
+        <!-- Swagger / OpenAPI Documentation -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.6.0</version>
         </dependency>
 
         <!-- Testing -->

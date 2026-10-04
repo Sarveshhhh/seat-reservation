@@ -1,4 +1,4 @@
-CREATE TABLE shows (
+CREATE TABLE IF NOT EXISTS shows (
     id UUID PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     price_paise BIGINT NOT NULL CHECK (price_paise > 0),
@@ -6,7 +6,7 @@ CREATE TABLE shows (
     created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
 );
 
-CREATE TABLE seats (
+CREATE TABLE IF NOT EXISTS seats (
     id UUID PRIMARY KEY,
     show_id UUID NOT NULL REFERENCES shows(id) ON DELETE CASCADE,
     seat_number VARCHAR(50) NOT NULL,
@@ -16,9 +16,9 @@ CREATE TABLE seats (
     CONSTRAINT chk_seat_status CHECK (status IN ('AVAILABLE', 'CONFIRMED'))
 );
 
-CREATE INDEX idx_seats_show_lookup ON seats(show_id, seat_number);
+CREATE INDEX IF NOT EXISTS idx_seats_show_lookup ON seats(show_id, seat_number);
 
-CREATE TABLE reservations (
+CREATE TABLE IF NOT EXISTS reservations (
     id UUID PRIMARY KEY,
     show_id UUID NOT NULL REFERENCES shows(id),
     user_id VARCHAR(100) NOT NULL,
@@ -31,9 +31,9 @@ CREATE TABLE reservations (
     CONSTRAINT chk_reservation_status CHECK (status IN ('CONFIRMED', 'CANCELLED'))
 );
 
-CREATE INDEX idx_reservations_show_user ON reservations(show_id, user_id, status);
+CREATE INDEX IF NOT EXISTS idx_reservations_show_user ON reservations(show_id, user_id, status);
 
-CREATE TABLE reservation_seats (
+CREATE TABLE IF NOT EXISTS reservation_seats (
     reservation_id UUID NOT NULL REFERENCES reservations(id) ON DELETE CASCADE,
     seat_id UUID NOT NULL REFERENCES seats(id),
     PRIMARY KEY (reservation_id, seat_id)

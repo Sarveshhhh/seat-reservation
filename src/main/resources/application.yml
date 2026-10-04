@@ -1,10 +1,10 @@
 spring:
   application:
-    name: seatreservation
+    name: seat-booking
   datasource:
-    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/seatreservation}
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/postgres?currentSchema=seatreservation}
     username: ${DATABASE_USERNAME:postgres}
-    password: ${DATABASE_PASSWORD:postgres}
+    password: ${DATABASE_PASSWORD:sarvesh}
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: ${DB_POOL_SIZE:20}
@@ -17,10 +17,16 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+        default_schema: seatreservation
         format_sql: false
     show-sql: false
   flyway:
     enabled: true
+    baseline-on-migrate: true
+    baseline-version: 0
+    create-schemas: true
+    schemas: seatreservation
+    default-schema: seatreservation
     locations: classpath:db/migration
 
 management:
